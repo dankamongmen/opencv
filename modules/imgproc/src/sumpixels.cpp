@@ -568,6 +568,8 @@ void integral(int depth, int sdepth, int sqdepth,
         ONE_CALL(uchar, float, float);
     else if( depth == CV_8U && sdepth == CV_64F && sqdepth == CV_64F )
         ONE_CALL(uchar, double, double);
+    else if( depth == CV_16U && sdepth == CV_32S && sqdepth == CV_64F )
+        ONE_CALL(ushort, int, double);
     else if( depth == CV_16U && sdepth == CV_64F && sqdepth == CV_64F )
         ONE_CALL(ushort, double, double);
     else if( depth == CV_16S && sdepth == CV_64F && sqdepth == CV_64F )

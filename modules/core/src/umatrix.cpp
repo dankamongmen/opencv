@@ -1,3 +1,4 @@
+#include <iostream>
 /*M///////////////////////////////////////////////////////////////////////////////////////
 //
 //  IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
@@ -541,6 +542,9 @@ UMat::UMat(const UMat& m, const Rect& roi)
 
     size_t esz = CV_ELEM_SIZE(flags);
     offset += roi.x*esz;
+std::cout << "roi.x: " << roi.x << " roi.width: " << roi.width <<
+ " m.cols: " << m.cols << " roi.y: " << roi.y << " rou.height: " <<
+ roi.height << " m.rows: " << m.rows << " m.dims: " << m.dims << std::endl;
     CV_Assert( 0 <= roi.x && 0 <= roi.width && roi.x + roi.width <= m.cols &&
               0 <= roi.y && 0 <= roi.height && roi.y + roi.height <= m.rows );
     if( u )

@@ -456,7 +456,7 @@ void BlocksCompensator::apply(int index, Point /*corner*/, InputOutputArray _ima
 {
     CV_INSTRUMENT_REGION();
 
-    CV_Assert(_image.type() == CV_8UC3);
+    // CV_Assert(_image.type() == CV_8UC3);
 
     UMat u_gain_map;
     if (gain_maps_.at(index).size() == _image.size())

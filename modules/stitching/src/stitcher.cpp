@@ -388,6 +388,7 @@ Stitcher::Status Stitcher::stitch(InputArrayOfArrays images, InputArrayOfArrays 
     CV_INSTRUMENT_REGION();
 
     Status status = estimateTransform(images, masks);
+    LOGLN("estimateTransform result: " << status);
     if (status != OK)
         return status;
     return composePanorama(pano);

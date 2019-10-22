@@ -1,3 +1,4 @@
+#include <iostream>
 /*M///////////////////////////////////////////////////////////////////////////////////////
 //
 //  IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
@@ -551,6 +552,9 @@ void integral(int depth, int sdepth, int sqdepth,
     CV_IPP_RUN_FAST(ipp_integral(depth, sdepth, sqdepth, src, srcstep, sum, sumstep, sqsum, sqsumstep, tilted, tstep, width, height, cn));
 
 #define ONE_CALL(A, B, C) integral_<A, B, C>((const A*)src, srcstep, (B*)sum, sumstep, (C*)sqsum, sqsumstep, (B*)tilted, tstep, width, height, cn)
+
+    std::cout << "depth: " << depth << " sdepth: " << sdepth
+       << " sqdepth: " << sqdepth << std::endl;
 
     if( depth == CV_8U && sdepth == CV_32S && sqdepth == CV_64F )
         ONE_CALL(uchar, int, double);

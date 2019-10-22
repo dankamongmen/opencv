@@ -1260,6 +1260,8 @@ void cv::pyrDown( InputArray _src, OutputArray _dst, const Size& _dsz, int borde
         func = pyrDown_< FltCast<float, 8> >;
     else if( depth == CV_64F )
         func = pyrDown_< FltCast<double, 8> >;
+    else if( depth == CV_32S )
+        func = pyrDown_< FixPtCast<int, 8> >;
     else
         CV_Error( CV_StsUnsupportedFormat, "" );
 
@@ -1361,6 +1363,8 @@ void cv::pyrUp( InputArray _src, OutputArray _dst, const Size& _dsz, int borderT
         func = pyrUp_< FixPtCast<ushort, 6> >;
     else if( depth == CV_32F )
         func = pyrUp_< FltCast<float, 6> >;
+    else if( depth == CV_32S )
+        func = pyrUp_< FixPtCast<int, 6> >;
     else if( depth == CV_64F )
         func = pyrUp_< FltCast<double, 6> >;
     else

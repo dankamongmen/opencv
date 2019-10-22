@@ -100,7 +100,7 @@ void Blender::feed(InputArray _img, InputArray _mask, Point tl)
     Mat dst = dst_.getMat(ACCESS_RW);
     Mat dst_mask = dst_mask_.getMat(ACCESS_RW);
 
-    CV_Assert(img.type() == CV_16SC3);
+    CV_Assert(img.type() == CV_16SC3 || img.type() == CV_32SC3);
     CV_Assert(mask.type() == CV_8U);
     int dx = tl.x - dst_roi_.x;
     int dy = tl.y - dst_roi_.y;
@@ -111,6 +111,11 @@ void Blender::feed(InputArray _img, InputArray _mask, Point tl)
         Point3_<short> *dst_row = dst.ptr<Point3_<short> >(dy + y);
         const uchar *mask_row = mask.ptr<uchar>(y);
         uchar *dst_mask_row = dst_mask.ptr<uchar>(dy + y);
+
+        std::cout << "src_row: " << (void*)src_row
+          << " dst_row: " << (void*)dst_row
+          << " mask_row: " << (void*)mask_row
+          << " dst_mask_row: " << (void*)dst_mask_row << std::endl;
 
         for (int x = 0; x < img.cols; ++x)
         {
@@ -146,7 +151,7 @@ void FeatherBlender::feed(InputArray _img, InputArray mask, Point tl)
     Mat img = _img.getMat();
     Mat dst = dst_.getMat(ACCESS_RW);
 
-    CV_Assert(img.type() == CV_16SC3);
+    CV_Assert(img.type() == CV_16SC3 || img.type() == CV_32SC3);
     CV_Assert(mask.type() == CV_8U);
 
     createWeightMap(mask, sharpness_, weight_map_);
@@ -162,6 +167,11 @@ void FeatherBlender::feed(InputArray _img, InputArray mask, Point tl)
         Point3_<short>* dst_row = dst.ptr<Point3_<short> >(dy + y);
         const float* weight_row = weight_map.ptr<float>(y);
         float* dst_weight_row = dst_weight_map.ptr<float>(dy + y);
+
+        std::cout << "src_row: " << (void*)src_row
+          << " dst_row: " << (void*)dst_row
+          << " weight_row: " << (void*)weight_row
+          << " dst_weight_row: " << (void*)dst_weight_row << std::endl;
 
         for (int x = 0; x < img.cols; ++x)
         {
@@ -359,7 +369,7 @@ void MultiBandBlender::feed(InputArray _img, InputArray mask, Point tl)
     }
 #endif
 
-    CV_Assert(img.type() == CV_16SC3 || img.type() == CV_8UC3);
+    // CV_Assert(img.type() == CV_16SC3 || img.type() == CV_8UC3);
     CV_Assert(mask.type() == CV_8U);
 
     // Keep source image in memory with small border
